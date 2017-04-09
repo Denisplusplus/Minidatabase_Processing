@@ -8,12 +8,12 @@ int passenger_read_txt(Passenger *p, FILE *in)
 {
     fscanf(in, "%s", p->surname);
     fscanf(in, "%s", p->initials);
-    fscanf(in, " %lf", &(p->baggage_quantity));
-    fscanf(in, "%d", &(p->baggage_weight));
+    fscanf(in, "%d", &(p->baggage_quantity));
+    fscanf(in, "%d ", &(p->baggage_weight));
     fscanf(in, "%s", p->destination);
     fscanf(in, "%s", p->time);
-    fscanf(in, "%c", &(p->transplants));
-    fscanf(in, "%c", &(p->children));
+    fscanf(in, " %c", &(p->transplants));
+    fscanf(in, " %c", &(p->children));
     return !feof(in);
 }
 
@@ -30,11 +30,26 @@ void passenger_write_bin(Passenger *p, FILE *out)
 
 }
 
+void passenger_read_bin(Passenger *p, FILE *in)
+{
+    fread(p->surname,  sizeof(char), SIZE_SURNAME, in);
+    fread(p->initials, sizeof(char), SIZE_INITIALS, in);
+    fread(&(p->baggage_quantity), sizeof(int), 1, in);
+    fread(&(p->baggage_weight), sizeof(double), 1, in);
+    fread(p->destination, sizeof(char), SIZE_DESTINATION, in);
+    fread(p->time, sizeof(char), SIZE_TIME, in);
+    fread(&(p->transplants), sizeof(char), 1, in);
+    fread(&(p->children), sizeof(char), 1, in);
+
+}
+
 void passenger_print(Passenger *p)
 {
-	printf("Name: %s %s\n", p->surname, p->initials);
+	printf("Surname: %s\n", p->surname);
+    printf("Initials: %s\n", p->initials);
     printf("Amount of stuff: %d\n", p->baggage_quantity);
-    printf("Baggage weight: %lf\n", p->baggage_weight);
+    printf("Baggage weight: %d\n", p->baggage_weight);
+    printf("Destination: %s\n", p->destination);
     printf("Departure time: %s\n", p->time);
     printf("Transplants: %c\n", p->transplants);
     printf("Children: %c\n", p->children);

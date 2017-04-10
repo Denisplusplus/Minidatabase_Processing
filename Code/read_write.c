@@ -30,7 +30,7 @@ void passenger_write_bin(Passenger *p, FILE *out)
 
 }
 
-void passenger_read_bin(Passenger *p, FILE *in)
+int passenger_read_bin(Passenger *p, FILE *in)
 {
     fread(p->surname,  sizeof(char), SIZE_SURNAME, in);
     fread(p->initials, sizeof(char), SIZE_INITIALS, in);

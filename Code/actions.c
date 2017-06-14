@@ -30,6 +30,7 @@ void task(int argc, char *argv[])
     printf("%d\n", weight_max);
 
     rewind(in);  
+
   	while (passenger_read_bin(&p, in)) {
   		if(abs(p.baggage_weight- weight_max) < parameter) {
         	passenger_print(&p);
@@ -59,7 +60,6 @@ void data_base_generate(int argc, char *argv[])
     while (passenger_read_txt(&p, in)) {
         passenger_write_bin(&p, out);
     }
-    
     
     fclose(in);
     fclose(out);
